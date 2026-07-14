@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سُوم — اعرض منتجك واستقبل السومات على واتسابك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F0;          /* محايد فاتح دافئ */
+  --card:#FFFFFF;
+  --ink:#141414;          /* أسود شبه صافي */
+  --muted:#71716A;
+  --line:#E7E7E0;
+  --green:#EDC85B;        /* الخردلي الدافئ — لون الهوية */
+  --green-hover:#E2BB43;
+  --green-soft:#FAF3DB;   /* خردلي ناعم للخلفيات */
+  --green-ink:#6B5310;    /* خردلي غامق للنصوص فوق الفاتح */
+  --wa:#25D366;
+  --wa-dark:#128C4A;
+  --wa-soft:#E7F8EE;
+  --amber:#D98A1F;
+  --amber-soft:#FBF1E1;
+  --radius:18px;
+  --shadow:0 1px 3px rgba(20,20,20,.05), 0 8px 24px rgba(20,20,20,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Tajawal',system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;
+}
+.brand-font{font-family:'Tajawal',sans-serif;font-weight:900}
+
+/* ---------- Header ---------- */
+header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.header-inner{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
+.logo{display:flex;align-items:baseline;gap:8px;flex-shrink:0;text-decoration:none;color:var(--ink)}
+.logo .mark{font-family:'Tajawal',sans-serif;font-weight:900;font-size:28px;color:var(--ink);line-height:1;background:var(--green);padding:2px 12px 4px;border-radius:12px}
+.logo .tag{font-size:12px;color:var(--muted);display:none}
+@media(min-width:640px){.logo .tag{display:block}}
+
+.search-wrap{flex:1;position:relative}
+.search-wrap input{
+  width:100%;padding:12px 44px 12px 48px;border:1.5px solid var(--line);border-radius:999px;
+  font-family:inherit;font-size:15px;background:var(--bg);transition:all .15s;
+}
+.search-wrap input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--green-soft)}
+.search-wrap .icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:16px}
+.ai-search-btn{
+  position:absolute;left:6px;top:50%;transform:translateY(-50%);
+  background:var(--ink);color:var(--green);border:none;
+  width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;
+}
+.ai-search-btn:hover{opacity:.9}
+.ai-search-btn:disabled{opacity:.55;cursor:wait}
+.ai-search-btn:focus-visible{outline:3px solid var(--green-soft)}
+
+.btn-add{
+  flex-shrink:0;background:var(--green);color:var(--ink);border:none;padding:12px 20px;
+  border-radius:999px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:6px;transition:all .1s;
+}
+.btn-add:hover{background:var(--green-hover)}
+.btn-add:focus-visible{outline:3px solid var(--green-soft);outline-offset:2px}
+.btn-add .txt{display:none}
+@media(min-width:560px){.btn-add .txt{display:inline}}
+
+/* ---------- Hero ---------- */
+.hero{max-width:1080px;margin:0 auto;padding:36px 20px 8px}
+.hero h1{font-family:'Tajawal',sans-serif;font-weight:900;font-size:clamp(26px,4.5vw,40px);line-height:1.45}
+.hero h1 em{font-style:normal;background:var(--green);color:var(--ink);padding:0 12px 3px;border-radius:12px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero p{color:var(--muted);font-size:15px;margin-top:4px}
+.hero p .wa-word{color:var(--wa-dark);font-weight:700}
+
+/* ---------- Categories & AI banner ---------- */
+.cats{max-width:1080px;margin:0 auto;padding:20px 20px 8px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.chip{
+  flex-shrink:0;border:1.5px solid var(--line);background:var(--card);padding:8px 18px;
+  border-radius:999px;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink);
+  cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;
+}
+.chip:hover{border-color:var(--ink)}
+.chip:focus-visible{outline:3px solid var(--green-soft)}
+.chip.active{background:var(--ink);border-color:var(--ink);color:var(--green)}
+.ai-banner{max-width:1080px;margin:12px auto 0;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ai-banner span{background:var(--green-soft);color:var(--green-ink);border-radius:999px;padding:8px 16px;font-size:13.5px;flex:1}
+.ai-banner b{font-weight:800}
+.ai-banner button{background:none;border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-family:inherit;font-size:13px;color:var(--muted);cursor:pointer}
+.ai-banner button:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ---------- Grid & cards ---------- */
+.grid{
+  max-width:1080px;margin:0 auto;padding:20px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;
+}
+.card{
+  background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  overflow:hidden;cursor:pointer;transition:all .15s;border:1px solid transparent;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 4px 8px rgba(23,34,30,.08),0 16px 32px rgba(23,34,30,.09)}
+.card .thumb{
+  height:160px;display:flex;align-items:center;justify-content:center;
+  font-size:52px;background:var(--green-soft);position:relative;overflow:hidden;
+}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+.card .photo-count{
+  position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.55);color:#fff;
+  font-size:11.5px;border-radius:999px;padding:2px 9px;font-weight:700;
+}
+.card .body{padding:14px 16px 16px}
+.card h3{font-size:15.5px;font-weight:700;line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .meta{margin-top:8px;display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+.card .price{margin-top:6px;font-weight:900;font-size:16.5px;color:var(--ink)}
+.card .price .cur{font-size:12px;font-weight:500}
+.card .price.open-soum{color:var(--muted);font-size:13.5px;font-weight:700}
+.d-price{margin-top:6px;font-weight:900;font-size:21px;color:var(--ink)}
+.d-price .cur{font-size:13px;font-weight:500}
+.d-price.open-soum{color:var(--muted);font-size:15px}
+.card .soum-cta{
+  margin-top:12px;width:100%;background:var(--wa-soft);color:var(--wa-dark);
+  border:none;border-radius:10px;padding:9px;font-family:inherit;font-weight:800;
+  font-size:13.5px;cursor:pointer;transition:background .15s;
+}
+.card .soum-cta:hover{background:#D6F2E2}
+.card .soum-cta:focus-visible{outline:2px solid var(--wa-dark)}
+
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+.empty .big{font-size:44px;margin-bottom:8px}
+.empty button{margin-top:14px;background:var(--green);color:var(--ink);border:none;padding:10px 22px;border-radius:999px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer}
+
+/* ---------- Overlays & modals ---------- */
+.overlay{position:fixed;inset:0;background:rgba(23,34,30,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.overlay.open{display:flex}
+.modal{
+  background:var(--card);border-radius:20px;width:100%;max-width:460px;padding:26px;
+  box-shadow:0 24px 64px rgba(0,0,0,.2);max-height:92vh;overflow-y:auto;
+}
+.modal h2{font-family:'Tajawal',sans-serif;font-weight:900;font-size:22px;color:var(--ink);margin-bottom:4px}
+.modal .sub{color:var(--muted);font-size:13.5px;margin-bottom:18px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13.5px;font-weight:700;margin-bottom:6px}
+.field label .opt{color:var(--muted);font-weight:400;font-size:12px}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;
+  font-family:inherit;font-size:14.5px;background:var(--bg);resize:vertical;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--green-soft)}
+.modal-actions{display:flex;gap:10px;margin-top:20px}
+.modal-actions .primary{flex:1;background:var(--green);color:var(--ink);border:none;padding:12px;border-radius:12px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.modal-actions .primary:hover{background:var(--green-hover)}
+.modal-actions .primary.wa{background:var(--wa-dark)}
+.modal-actions .primary.wa:hover{background:#0E7A3F}
+.modal-actions .ghost{background:none;border:1.5px solid var(--line);padding:12px 18px;border-radius:12px;font-family:inherit;font-size:14px;cursor:pointer;color:var(--muted)}
+
+.ai-btn{
+  width:100%;margin:2px 0 16px;padding:12px;border:none;border-radius:12px;
+  background:var(--ink);color:var(--green);
+  font-family:inherit;font-weight:800;font-size:14.5px;cursor:pointer;transition:all .1s;
+}
+.ai-btn:hover{opacity:.92}
+.ai-btn:disabled{opacity:.6;cursor:wait}
+.ai-btn:focus-visible{outline:3px solid var(--green-soft);outline-offset:2px}
+
+/* Photo upload */
+.photo-drop{
+  border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;
+  cursor:pointer;color:var(--muted);font-size:13.5px;transition:all .15s;background:var(--bg);
+}
+.photo-drop:hover{border-color:var(--ink);color:var(--ink)}
+.photo-previews{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.photo-previews .ph{
+  width:64px;height:64px;border-radius:10px;overflow:hidden;position:relative;border:1.5px solid var(--line);
+}
+.photo-previews .ph img{width:100%;height:100%;object-fit:cover}
+.photo-previews .ph button{
+  position:absolute;top:2px;left:2px;background:rgba(0,0,0,.6);color:#fff;border:none;
+  width:18px;height:18px;border-radius:50%;font-size:10px;cursor:pointer;line-height:1;
+}
+
+/* WhatsApp toggle */
+.wa-toggle{
+  display:flex;align-items:center;gap:12px;background:var(--wa-soft);
+  border-radius:14px;padding:12px 14px;margin-bottom:14px;cursor:pointer;
+}
+.wa-toggle input{width:auto;accent-color:var(--wa-dark);transform:scale(1.3);cursor:pointer}
+.wa-toggle .txt{font-size:13.5px;font-weight:700;color:var(--wa-dark)}
+.wa-toggle .txt small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+
+/* ---------- Detail modal ---------- */
+.detail{
+  background:var(--card);border-radius:20px;width:100%;max-width:520px;
+  box-shadow:0 24px 64px rgba(0,0,0,.2);max-height:92vh;overflow-y:auto;
+}
+.detail .d-thumb{
+  height:240px;display:flex;align-items:center;justify-content:center;font-size:88px;
+  background:var(--green-soft);border-radius:20px 20px 0 0;position:relative;overflow:hidden;
+}
+.detail .d-thumb img{width:100%;height:100%;object-fit:cover}
+.detail .d-close{
+  position:absolute;top:14px;left:14px;background:var(--card);border:none;width:36px;height:36px;
+  border-radius:50%;font-size:16px;cursor:pointer;box-shadow:var(--shadow);color:var(--ink);z-index:2;
+}
+.detail .d-close:focus-visible{outline:3px solid var(--green)}
+/* ---------- Gallery carousel ---------- */
+.detail .d-thumb{
+  height:280px;display:flex;align-items:center;justify-content:center;font-size:88px;
+  background:var(--green-soft);border-radius:20px 20px 0 0;position:relative;overflow:hidden;
+  touch-action:pan-y;user-select:none;
+}
+.detail .d-thumb img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+.gal-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  background:rgba(255,255,255,.92);border:none;width:38px;height:38px;border-radius:50%;
+  font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;transition:background .15s;
+}
+.gal-arrow:hover{background:#fff}
+.gal-arrow:focus-visible{outline:3px solid var(--green)}
+.gal-arrow.next{right:12px}
+.gal-arrow.prev{left:12px}
+.gal-counter{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:2;
+  background:rgba(0,0,0,.6);color:#fff;font-size:12px;font-weight:700;
+  border-radius:999px;padding:3px 12px;letter-spacing:1px;
+}
+.d-gallery{display:flex;gap:6px;padding:10px 16px 0;overflow-x:auto;scrollbar-width:thin}
+.d-gallery img{
+  width:56px;height:56px;border-radius:10px;object-fit:cover;cursor:pointer;
+  border:2px solid transparent;flex-shrink:0;opacity:.7;transition:all .15s;
+}
+.d-gallery img.sel{border-color:var(--ink);opacity:1}
+.d-gallery img:hover{opacity:1}
+
+/* ---------- Fullscreen lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;background:rgba(10,14,12,.95);z-index:400;
+  display:none;align-items:center;justify-content:center;touch-action:pan-y;user-select:none;
+}
+.lightbox.open{display:flex}
+.lightbox img{max-width:96vw;max-height:88vh;object-fit:contain;border-radius:8px}
+.lightbox .lb-close{
+  position:absolute;top:18px;left:18px;background:rgba(255,255,255,.14);color:#fff;
+  border:none;width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;
+}
+.lightbox .lb-close:hover{background:rgba(255,255,255,.28)}
+.lightbox .gal-arrow{background:rgba(255,255,255,.15);color:#fff;box-shadow:none;width:44px;height:44px}
+.lightbox .gal-arrow:hover{background:rgba(255,255,255,.3)}
+.lightbox .gal-counter{bottom:22px;font-size:13.5px}
+
+.detail .d-body{padding:16px 24px 24px}
+.detail h2{font-size:20px;font-weight:800;line-height:1.5}
+.detail .d-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:13.5px;color:var(--muted)}
+.detail .d-desc{margin-top:14px;padding:14px 16px;background:var(--bg);border-radius:12px;font-size:14.5px;line-height:1.8}
+.detail .d-seller{margin-top:14px;display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px}
+.detail .d-seller .avatar{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--green);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0}
+.detail .d-seller .name{font-weight:700;font-size:14.5px}
+.detail .d-seller .role{font-size:12.5px;color:var(--muted)}
+.wa-badge{margin-right:auto;background:var(--wa-soft);color:var(--wa-dark);font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.detail .d-actions{margin-top:18px}
+.detail .d-actions .primary{
+  width:100%;background:var(--wa-dark);color:#fff;border:none;padding:14px;border-radius:12px;
+  font-family:inherit;font-weight:800;font-size:15.5px;cursor:pointer;
+}
+.detail .d-actions .primary:hover{background:#0E7A3F}
+.no-price-note{margin-top:8px;text-align:center;font-size:12.5px;color:var(--muted)}
+
+/* ---------- WhatsApp preview ---------- */
+.wa-preview{
+  background:#E5DDD5;border-radius:20px;width:100%;max-width:420px;overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,.25);
+}
+.wa-preview .wa-head{
+  background:#075E54;color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;
+}
+.wa-preview .wa-head .t{font-weight:700;font-size:14.5px}
+.wa-preview .wa-head .s{font-size:11.5px;opacity:.8}
+.wa-preview .wa-head .x{margin-right:auto;background:none;border:none;color:#fff;font-size:18px;cursor:pointer}
+.wa-tabs{display:flex;background:#075E54;padding:0 10px;gap:4px}
+.wa-tab{
+  flex:1;background:none;border:none;color:rgba(255,255,255,.65);font-family:inherit;
+  font-size:12px;font-weight:700;padding:9px 4px;cursor:pointer;
+  border-bottom:3px solid transparent;
+}
+.wa-tab.on{color:#fff;border-bottom-color:#25D366}
+.wa-preview .wa-body{padding:18px 16px 22px}
+.wa-msg{
+  background:#fff;border-radius:0 12px 12px 12px;padding:12px 14px;font-size:13.5px;
+  line-height:1.9;box-shadow:0 1px 1px rgba(0,0,0,.08);max-width:95%;
+  white-space:pre-line;word-break:break-word;
+}
+.wa-reply{
+  background:#DCF8C6;border-radius:12px 0 12px 12px;padding:12px 14px;font-size:13.5px;
+  line-height:1.9;box-shadow:0 1px 1px rgba(0,0,0,.08);max-width:88%;
+  white-space:pre-line;word-break:break-word;margin:10px 0 0 auto;
+}
+.wa-msg a{color:#039BE5;font-weight:700;text-decoration:none}
+.wa-msg .time,.wa-reply .time{display:block;text-align:left;font-size:10.5px;color:#999;margin-top:4px}
+.wa-note{
+  margin-top:14px;background:rgba(255,255,255,.75);border-radius:12px;padding:10px 14px;
+  font-size:12px;color:#555;text-align:center;
+}
+
+/* ---------- Deal & Owner dashboard ---------- */
+.wa-sys{
+  background:#FFF8E1;border:1px solid #FFE082;border-radius:12px;padding:11px 14px;
+  font-size:13px;line-height:1.9;margin-top:10px;white-space:pre-line;word-break:break-word;
+}
+.wa-sys b{color:#B8860B}
+.wa-sys .paylink{
+  display:inline-block;background:var(--green);color:#fff;border-radius:8px;
+  padding:5px 14px;font-weight:800;font-size:12.5px;margin-top:4px;cursor:pointer;
+}
+/* أزرار الرد السريع — مثل واتساب الحقيقي */
+.wa-btns{display:flex;gap:8px;margin-top:8px;max-width:95%}
+.wa-btn{
+  flex:1;background:#fff;border:none;border-radius:10px;padding:10px 8px;
+  font-family:inherit;font-size:13.5px;font-weight:800;color:#039BE5;cursor:pointer;
+  box-shadow:0 1px 1px rgba(0,0,0,.08);transition:background .15s;
+}
+.wa-btn:hover{background:#F0F8FF}
+.wa-btn:focus-visible{outline:2px solid #039BE5}
+.owner-link{cursor:pointer;color:var(--ink);font-weight:800;text-decoration:underline;text-decoration-color:var(--green);text-decoration-thickness:3px}
+.owner-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.owner-table th{background:var(--green-soft);color:var(--green);padding:8px;text-align:right;font-size:12px}
+.owner-table td{padding:8px;border-bottom:1px solid var(--line)}
+.owner-table .st{border-radius:999px;padding:2px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+.st.done{background:var(--wa-soft);color:var(--wa-dark)}
+.st.wait{background:var(--amber-soft);color:var(--amber)}
+.owner-total{
+  margin-top:14px;background:var(--green);color:#fff;border-radius:14px;
+  padding:14px 18px;display:flex;justify-content:space-between;font-weight:800;font-size:15px;
+}
+
+/* ---------- Admin dashboard ---------- */
+.admin{
+  position:fixed;inset:0;background:var(--bg);z-index:350;display:none;
+  overflow-y:auto;
+}
+.admin.open{display:block}
+.admin-head{
+  background:var(--ink);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:5;
+  display:flex;align-items:center;gap:14px;
+}
+.admin-head h2{font-size:17px;font-weight:900}
+.admin-head .close{
+  margin-right:auto;background:rgba(255,255,255,.14);border:none;color:#fff;
+  border-radius:999px;padding:8px 18px;font-family:inherit;font-weight:700;
+  font-size:13px;cursor:pointer;
+}
+.admin-head .close:hover{background:rgba(255,255,255,.26)}
+.admin-nav{
+  background:var(--card);border-bottom:1px solid var(--line);padding:0 14px;
+  display:flex;gap:2px;overflow-x:auto;position:sticky;top:52px;z-index:5;scrollbar-width:none;
+}
+.admin-nav button{
+  background:none;border:none;font-family:inherit;font-size:13.5px;font-weight:700;
+  padding:13px 16px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;
+  white-space:nowrap;
+}
+.admin-nav button.on{color:var(--ink);border-bottom-color:var(--green)}
+.admin-content{max-width:1080px;margin:0 auto;padding:20px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
+.kpi{
+  background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow);
+}
+.kpi .v{font-size:23px;font-weight:900;color:var(--ink)}
+.kpi .v.money{color:var(--ink);background:var(--green);border-radius:8px;padding:0 8px;display:inline-block}
+.kpi .k{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+.panel{background:var(--card);border-radius:16px;padding:18px;box-shadow:var(--shadow);margin-top:16px}
+.panel h3{font-size:15px;font-weight:800;margin-bottom:12px}
+.panel .note{font-size:12px;color:var(--muted);margin-top:10px}
+
+.hbar{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.hbar .lbl{width:95px;flex-shrink:0;font-weight:700}
+.hbar .track{flex:1;background:var(--bg);border-radius:999px;height:20px;overflow:hidden}
+.hbar .fill{height:100%;background:var(--green);border-radius:999px;display:flex;align-items:center;justify-content:flex-end;padding-left:8px;color:var(--ink);font-size:11px;font-weight:900;min-width:26px}
+.hbar.amber .fill{background:var(--amber)}
+
+.vbars{display:flex;align-items:flex-end;gap:8px;height:110px;padding-top:8px}
+.vbar{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.vbar .col{width:100%;max-width:44px;background:var(--green-soft);border-radius:6px 6px 0 0;position:relative;transition:height .3s}
+.vbar .col b{position:absolute;top:-19px;right:50%;transform:translateX(50%);font-size:11px;color:var(--ink);font-weight:900}
+.vbar .day{font-size:10.5px;color:var(--muted)}
+.vbar.today .col{background:var(--green);outline:2px solid var(--ink)}
+
+.admin-table{width:100%;border-collapse:collapse;font-size:13px}
+.admin-table th{background:var(--green-soft);color:var(--green-ink);padding:9px 8px;text-align:right;font-size:11.5px;white-space:nowrap}
+.admin-table td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.admin-table tr:last-child td{border-bottom:none}
+.tbl-wrap{overflow-x:auto}
+.st{border-radius:999px;padding:2px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+.st.ok{background:var(--wa-soft);color:var(--wa-dark)}
+.st.blocked{background:#FDECEA;color:#C0392B}
+.btn-block{
+  background:none;border:1.5px solid #E5B4AE;color:#C0392B;border-radius:999px;
+  padding:4px 13px;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;
+}
+.btn-block:hover{background:#FDECEA}
+.btn-unblock{
+  background:none;border:1.5px solid var(--line);color:var(--wa-dark);border-radius:999px;
+  padding:4px 13px;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;
+}
+.btn-unblock:hover{background:var(--wa-soft)}
+.block-add{display:flex;gap:8px;margin-bottom:14px}
+.block-add input{
+  flex:1;padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;
+  font-family:inherit;font-size:14px;background:var(--bg);
+}
+.block-add button{
+  background:#C0392B;color:#fff;border:none;border-radius:10px;padding:0 18px;
+  font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;
+}
+.fin-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.fin-row:last-child{border-bottom:none}
+.fin-row b.pos{color:var(--wa-dark)}
+.fin-row b.neg{color:#C0392B}
+.fin-row.total{font-weight:900;font-size:15px}
+
+/* ---------- Toast ---------- */
+.toast{
+  position:fixed;bottom:24px;right:50%;transform:translateX(50%) translateY(80px);
+  background:var(--ink);color:#fff;padding:12px 22px;border-radius:999px;
+  font-size:14px;font-weight:500;opacity:0;transition:all .3s;z-index:300;pointer-events:none;
+  max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(50%) translateY(0)}
+
+footer{max-width:1080px;margin:24px auto 0;padding:24px 20px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#" onclick="return false">
+      <span class="mark">سُوم</span>
+      <span class="tag">اعرض.. واستقبل السومات في واتسابك</span>
+    </a>
+    <div class="search-wrap">
+      <span class="icon">⌕</span>
+      <input id="search" type="search" placeholder="اكتب طبيعي: أبي كنب مجالس بالرياض" aria-label="بحث"
+        onkeydown="if(event.key==='Enter')aiSearch()">
+      <button class="ai-search-btn" id="aiSearchBtn" onclick="aiSearch()" title="بحث ذكي">✨</button>
+    </div>
+    <button class="btn-add" onclick="openModal()">
+      <span>+</span><span class="txt">أضف إعلانك</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 class="brand-font">اعرض منتجك بسعر أو على السوم.. <em>والسومات</em> توصلك</h1>
+  <p>المشتري يسوم من الموقع، والسومة توصلك فوراً <span class="wa-word">إشعار في واتسابك</span> — وترد عليه مباشرة.</p>
+</section>
+
+<nav class="cats" id="cats" aria-label="التصنيفات"></nav>
+
+<div class="ai-banner" id="aiBanner" style="display:none">
+  <span>✨ فهمنا: <b id="aiBannerTxt"></b></span>
+  <button onclick="clearAiSearch()">✕ مسح</button>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<footer>
+  <span>سُوم © ٢٠٢٦ · <b style="background:var(--green);border-radius:6px;padding:1px 8px">v3.2</b> · <span class="owner-link" onclick="openAdmin()">📊 لوحة المالك</span></span>
+  <span>قناة واتساب وسيطة عبر Twilio — الأرقام مخفية بين الطرفين (محاكاة)</span>
+</footer>
+
+<!-- Add listing modal -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+    <h2 id="mtitle">أضف إعلانك</h2>
+    <div class="sub">بدون سعر — خل السوق يسوم وأنت تختار أفضل سومة.</div>
+    <div class="field">
+      <label for="f-title">وش تبيع؟</label>
+      <input id="f-title" placeholder="اكتب كلمتين وخل الباقي علينا: كنب مجلس عربي نظيف">
+    </div>
+    <button class="ai-btn" id="aiBtn" onclick="aiWrite()">
+      <span id="aiBtnTxt">✨ اكتب إعلاني بالذكاء الاصطناعي</span>
+    </button>
+    <div class="field">
+      <label for="f-desc">الوصف</label>
+      <textarea id="f-desc" rows="3" placeholder="تفاصيل المنتج… أو خل الذكاء الاصطناعي يكتبها"></textarea>
+    </div>
+    <div class="field">
+      <label>الصور <span class="opt">(حتى 5 صور)</span></label>
+      <div class="photo-drop" onclick="document.getElementById('f-photos').click()">
+        📷 اضغط لرفع صور المنتج
+      </div>
+      <input type="file" id="f-photos" accept="image/*" multiple style="display:none" onchange="handlePhotos(event)">
+      <div class="photo-previews" id="photoPreviews"></div>
+    </div>
+    <div class="field">
+      <label for="f-cat">التصنيف</label>
+      <select id="f-cat"></select>
+    </div>
+    <div class="field">
+      <label for="f-city">المدينة</label>
+      <select id="f-city">
+        <option>الرياض</option><option>جدة</option><option>الدمام</option>
+        <option>مكة</option><option>المدينة</option><option>أبها</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-price">السعر المطلوب (ريال) <span class="opt">اختياري — اتركه فاضي والسوق يسوم</span></label>
+      <input id="f-price" type="number" min="1" placeholder="مثال: 1500">
+    </div>
+    <div class="field">
+      <label for="f-wa">رقم واتسابك</label>
+      <input id="f-wa" type="tel" placeholder="05xxxxxxxx" dir="ltr" style="text-align:right">
+    </div>
+    <label class="wa-toggle">
+      <input type="checkbox" id="f-notify" checked>
+      <span class="txt">أرسلوا لي كل سومة إشعار في الواتساب
+        <small>توصلك رسالة فيها مبلغ السومة واسم المشتري، وترد عليه من واتسابك مباشرة عبر قناة سُوم — أرقامكم تظل مخفية بينكم</small>
+      </span>
+    </label>
+    <div class="modal-actions">
+      <button class="primary" onclick="addListing()">انشر الإعلان</button>
+      <button class="ghost" onclick="closeModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- Product detail modal -->
+<div class="overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
+  <div class="detail" role="dialog" aria-modal="true" id="detailContent"></div>
+</div>
+
+<!-- Soum offer modal -->
+<div class="overlay" id="soumOverlay" onclick="if(event.target===this)closeSoum()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="soumTitle">
+    <h2 id="soumTitle">🤝 قدّم سومتك</h2>
+    <div class="sub" id="soumSub"></div>
+    <div class="field">
+      <label for="s-amount">مبلغ السومة (ريال)</label>
+      <input id="s-amount" type="number" min="1" placeholder="مثال: 1500">
+    </div>
+    <div class="field">
+      <label for="s-name">اسمك</label>
+      <input id="s-name" placeholder="اسمك اللي يظهر للبائع">
+    </div>
+    <div class="field">
+      <label for="s-phone">جوالك (واتساب)</label>
+      <input id="s-phone" type="tel" placeholder="05xxxxxxxx" dir="ltr" style="text-align:right">
+    </div>
+    <div class="field">
+      <label for="s-msg">رسالة للبائع <span class="opt">(اختياري)</span></label>
+      <input id="s-msg" placeholder="مثال: أقدر أعاين اليوم العصر">
+    </div>
+    <div class="modal-actions">
+      <button class="primary wa" onclick="sendSoum()">أرسل السومة للبائع 📲</button>
+      <button class="ghost" onclick="closeSoum()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp relay preview (simulating the Twilio masked channel) -->
+<div class="overlay" id="waOverlay" onclick="if(event.target===this)closeWa()">
+  <div class="wa-preview" role="dialog" aria-modal="true" aria-label="معاينة قناة الواتساب الوسيطة">
+    <div class="wa-head">
+      <span style="font-size:22px">💬</span>
+      <div>
+        <div class="t" id="waHeadTitle">واتساب البائع</div>
+        <div class="s">عبر رقم سُوم في Twilio — الأرقام مخفية بين الطرفين</div>
+      </div>
+      <button class="x" onclick="closeWa()" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="wa-tabs">
+      <button class="wa-tab on" id="tabSeller" onclick="waTab('seller')">📥 للبائع</button>
+      <button class="wa-tab" id="tabBuyer" onclick="waTab('buyer')">📥 للمشتري</button>
+      <button class="wa-tab" id="tabDeal" onclick="waTab('deal')">✅ إتمام الصفقة</button>
+    </div>
+    <div class="wa-body">
+      <div class="wa-msg" id="waMsg"></div>
+      <div class="wa-reply" id="waReply" style="display:none"></div>
+      <div class="wa-note" id="waNote"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp verification modal (one-time, replaces login entirely) -->
+<div class="overlay" id="verifyOverlay" onclick="if(event.target===this)closeVerify()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="vTitle" style="max-width:380px">
+    <h2 id="vTitle">📲 تحقق سريع — مرة وحدة بس</h2>
+    <div class="sub" id="verifySub">أرسلنا رمز لواتسابك. هذا بديلنا عن التسجيل — لا حساب ولا كلمة مرور.</div>
+    <div class="field">
+      <label for="v-code">رمز التحقق</label>
+      <input id="v-code" type="tel" maxlength="4" placeholder="• • • •" dir="ltr"
+        style="text-align:center;letter-spacing:8px;font-size:20px;font-weight:800"
+        onkeydown="if(event.key==='Enter')confirmVerify()">
+    </div>
+    <div class="modal-actions">
+      <button class="primary wa" onclick="confirmVerify()">تأكيد</button>
+      <button class="ghost" onclick="closeVerify()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen photo lightbox -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()" ontouchstart="galTouchStart(event)" ontouchend="galTouchEnd(event)">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="إغلاق">✕</button>
+  <button class="gal-arrow prev" onclick="galMove(-1)" aria-label="السابقة">‹</button>
+  <img id="lbImg" src="" alt="صورة المنتج">
+  <button class="gal-arrow next" onclick="galMove(1)" aria-label="التالية">›</button>
+  <span class="gal-counter" id="lbCounter"></span>
+</div>
+
+<!-- Admin dashboard (full screen) -->
+<div class="admin" id="admin">
+  <div class="admin-head">
+    <h2>📊 لوحة المالك — سُوم</h2>
+    <button class="close" onclick="closeAdmin()">✕ رجوع للموقع</button>
+  </div>
+  <nav class="admin-nav" id="adminNav">
+    <button class="on" onclick="adminTab('overview')" data-t="overview">نظرة عامة</button>
+    <button onclick="adminTab('products')" data-t="products">المنتجات</button>
+    <button onclick="adminTab('sellers')" data-t="sellers">البائعون</button>
+    <button onclick="adminTab('visitors')" data-t="visitors">الزوار</button>
+    <button onclick="adminTab('finance')" data-t="finance">المالية</button>
+    <button onclick="adminTab('blocked')" data-t="blocked">الحظر 🚫</button>
+  </nav>
+  <div class="admin-content" id="adminContent"></div>
+</div>
+
+<!-- Soum success confirmation (live mode) -->
+<div class="overlay" id="soumSuccessOverlay" onclick="if(event.target===this)closeSoumSuccess()">
+  <div class="modal" role="dialog" aria-modal="true" style="max-width:380px">
+    <div id="soumSuccessBody"></div>
+    <div class="modal-actions">
+      <button class="primary" onclick="closeSoumSuccess()" style="flex:1">تمام 👍</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CATS = [
+  {id:'all',    label:'الكل',        emoji:'✦'},
+  {id:'phones', label:'جوالات',      emoji:'📱'},
+  {id:'cars',   label:'سيارات',      emoji:'🚗'},
+  {id:'furn',   label:'أثاث',        emoji:'🛋️'},
+  {id:'elec',   label:'إلكترونيات',  emoji:'💻'},
+  {id:'animals',label:'حيوانات',     emoji:'🐐'},
+  {id:'services',label:'خدمات',      emoji:'🛠️'},
+  {id:'misc',   label:'متفرقات',     emoji:'📦'},
+];
+const CITIES = ['الرياض','جدة','الدمام','مكة','المدينة','أبها'];
+
+let listings = []; // البيانات من قاعدة Supabase فقط
+
+let activeCat = 'all';
+let query = '';
+let aiFilters = null;
+let pendingPhotos = [];
+let soumIdx = null;
+
+const grid = document.getElementById('grid');
+const fmt = n => Number(n).toLocaleString('en-US');
+const esc = s => String(s).replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+
+/* ---------- Categories ---------- */
+function renderCats(){
+  document.getElementById('cats').innerHTML = CATS.map(c =>
+    `<button class="chip ${c.id===activeCat?'active':''}" onclick="setCat('${c.id}')">
+      <span>${c.emoji}</span>${c.label}</button>`).join('');
+  document.getElementById('f-cat').innerHTML =
+    CATS.filter(c=>c.id!=='all').map(c=>`<option value="${c.id}">${c.label}</option>`).join('');
+}
+function setCat(id){ activeCat = id; renderCats(); render(); }
+
+/* ---------- Render grid ---------- */
+function render(){
+  const q = query.trim();
+  let items = listings.filter(l =>
+    !blockedPhones[l.wa] &&
+    (activeCat==='all' || l.c===activeCat) &&
+    (!q || l.t.includes(q) || l.city.includes(q))
+  );
+  if(aiFilters){
+    items = items.filter(l =>
+      (!aiFilters.cat || l.c===aiFilters.cat) &&
+      (!aiFilters.city || l.city===aiFilters.city) &&
+      (!aiFilters.keywords?.length || aiFilters.keywords.some(k => l.t.includes(k) || (l.desc||'').includes(k)))
+    );
+  }
+  if(!items.length){
+    grid.innerHTML = `<div class="empty">
+      <div class="big">🔍</div><div>ما لقينا شي يطابق بحثك.</div>
+      <button onclick="openModal()">كن أول من يعلن هنا</button></div>`;
+    return;
+  }
+  grid.innerHTML = items.map(l=>{
+    const idx = listings.indexOf(l);
+    const thumb = l.photos.length
+      ? `<img src="${l.photos[0]}" alt="">${l.photos.length>1?`<span class="photo-count">📷 ${l.photos.length}</span>`:''}`
+      : l.e;
+    return `
+    <article class="card" tabindex="0" onclick="openDetail(${idx})"
+      onkeydown="if(event.key==='Enter')openDetail(${idx})">
+      <div class="thumb">${thumb}</div>
+      <div class="body">
+        <h3>${esc(l.t)}</h3>
+        ${l.p ? `<div class="price">${fmt(l.p)} <span class="cur">ريال</span></div>`
+              : `<div class="price open-soum">🤝 على السوم</div>`}
+        <div class="meta"><span>📍 ${l.city}</span><span>${l.time}</span></div>
+        <div class="meta" style="margin-top:4px"><span>🤝 ${l.soums ? fmt(l.soums)+' سومة وصلت' : 'كن أول من يسوم'}</span></div>
+        <button class="soum-cta" onclick="event.stopPropagation();openSoum(${idx})">🤝 قدّم سومتك</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+/* ---------- Gallery engine ---------- */
+let galPhotos = [], galIdx = 0;
+
+function galMove(dir){
+  if(!galPhotos.length) return;
+  galIdx = (galIdx + dir + galPhotos.length) % galPhotos.length;
+  galSync();
+}
+function galGo(i){ galIdx = i; galSync(); }
+function galSync(){
+  const main = document.getElementById('dMainImg');
+  if(main) main.src = galPhotos[galIdx];
+  const counter = document.getElementById('galCounter');
+  if(counter) counter.textContent = (galIdx+1) + ' / ' + galPhotos.length;
+  document.querySelectorAll('.d-gallery img').forEach((im,i)=>{
+    im.classList.toggle('sel', i===galIdx);
+    if(i===galIdx) im.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+  });
+  // مزامنة العارض الكامل لو مفتوح
+  const lb = document.getElementById('lightbox');
+  if(lb.classList.contains('open')){
+    document.getElementById('lbImg').src = galPhotos[galIdx];
+    document.getElementById('lbCounter').textContent = (galIdx+1) + ' / ' + galPhotos.length;
+  }
+}
+function openLightbox(){
+  if(!galPhotos.length) return;
+  document.getElementById('lightbox').classList.add('open');
+  galSync();
+}
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+
+// سحب باللمس (يدعم الجوال) — على المعرض والعارض الكامل
+let touchX = null;
+function galTouchStart(e){ touchX = e.touches[0].clientX; }
+function galTouchEnd(e){
+  if(touchX===null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  touchX = null;
+  if(Math.abs(dx) < 40) return;
+  // RTL: السحب لليمين = التالي
+  galMove(dx > 0 ? 1 : -1);
+}
+
+/* ---------- Detail ---------- */
+function openDetail(idx){
+  const l = listings[idx];
+  const initial = (l.seller||'ب').charAt(0);
+  galPhotos = l.photos || [];
+  galIdx = 0;
+  const hasMany = galPhotos.length > 1;
+
+  const mainArea = galPhotos.length
+    ? `<img id="dMainImg" src="${galPhotos[0]}" alt="صورة المنتج" onclick="openLightbox()">
+       ${hasMany ? `
+         <button class="gal-arrow prev" onclick="event.stopPropagation();galMove(-1)" aria-label="السابقة">‹</button>
+         <button class="gal-arrow next" onclick="event.stopPropagation();galMove(1)" aria-label="التالية">›</button>
+         <span class="gal-counter" id="galCounter">1 / ${galPhotos.length}</span>` : ''}`
+    : l.e;
+
+  const gallery = hasMany
+    ? `<div class="d-gallery">${galPhotos.map((p,i)=>
+        `<img src="${p}" class="${i===0?'sel':''}" onclick="galGo(${i})" alt="مصغرة ${i+1}">`).join('')}</div>`
+    : '';
+
+  document.getElementById('detailContent').innerHTML = `
+    <div class="d-thumb" ontouchstart="galTouchStart(event)" ontouchend="galTouchEnd(event)">${mainArea}
+      <button class="d-close" onclick="closeDetail()" aria-label="إغلاق">✕</button>
+    </div>
+    ${gallery}
+    <div class="d-body">
+      <h2>${esc(l.t)}</h2>
+      ${l.p ? `<div class="d-price">${fmt(l.p)} <span class="cur">ريال</span></div>`
+            : `<div class="d-price open-soum">🤝 على السوم — البائع ما حدد سعر</div>`}
+      <div class="d-meta">
+        <span>📍 ${l.city}</span><span>🕐 ${l.time}</span>
+        <span>${CATS.find(c=>c.id===l.c)?.emoji||'📦'} ${CATS.find(c=>c.id===l.c)?.label||'متفرقات'}</span>
+        <span>🤝 ${l.soums ? fmt(l.soums)+' سومة' : 'بدون سومات بعد'}</span>
+      </div>
+      <div class="d-desc">${esc(l.desc || 'تواصل مع البائع للتفاصيل.')}</div>
+      <div class="d-seller">
+        <div class="avatar">${initial}</div>
+        <div>
+          <div class="name">${esc(l.seller || 'بائع')}</div>
+          <div class="role">عضو في سُوم · ${l.city}</div>
+        </div>
+        ${l.notify ? '<span class="wa-badge">📲 يستقبل السومات فوراً</span>' : ''}
+      </div>
+      <div class="d-actions">
+        <button class="primary" onclick="closeDetail();openSoum(${idx})">🤝 قدّم سومتك — توصله واتساب</button>
+        <div class="no-price-note">${l.p ? 'هذا السعر المطلوب — وتقدر تسوم بمبلغك وهو يرد عليك في الواتساب' : 'البائع ما حدد سعر — أنت تسوم وهو يرد عليك في الواتساب'}</div>
+      </div>
+    </div>`;
+  document.getElementById('detailOverlay').classList.add('open');
+}
+function closeDetail(){ document.getElementById('detailOverlay').classList.remove('open'); }
+
+/* ---------- تأكيد نجاح النشر ---------- */
+function showPublishSuccess(title, notify){
+  const el = document.getElementById('soumSuccessBody');
+  el.innerHTML = `
+    <div style="text-align:center;font-size:44px;margin-bottom:8px">🎉</div>
+    <div style="text-align:center;font-weight:900;font-size:17px;margin-bottom:6px">تم نشر إعلانك!</div>
+    <div style="text-align:center;color:var(--muted);font-size:13.5px;line-height:1.9">
+      «${esc(title)}» صار ظاهر للجميع في السوق.
+      ${notify ? '<br>📲 كل سومة توصل عليه بتوصلك إشعار في واتسابك فوراً.' : ''}
+    </div>`;
+  document.getElementById('soumSuccessOverlay').classList.add('open');
+}
+
+/* ---------- تأكيد نجاح السومة (الوضع الحي) ---------- */
+function showSoumSuccess(data, l, amount){
+  const el = document.getElementById('soumSuccessBody');
+  el.innerHTML = `
+    <div style="text-align:center;font-size:44px;margin-bottom:8px">${data.waSent ? '📲' : '✅'}</div>
+    <div style="text-align:center;font-weight:900;font-size:17px;margin-bottom:6px">
+      ${data.isUpdate ? 'تحدّثت سومتك عند البائع' : 'وصلت سومتك للبائع!'}
+    </div>
+    <div style="text-align:center;color:var(--muted);font-size:13.5px;line-height:1.9">
+      ${data.waSent
+        ? 'وصل ' + esc(data.sellerName||'البائع') + ' إشعار في واتسابه بسومتك (' + fmt(amount) + ' ريال) — بيرد عليك في واتسابك ورقمك يظل مخفي.'
+        : 'سُجلت سومتك (' + fmt(amount) + ' ريال) في النظام. إشعار الواتساب ما وصل البائع — في مرحلة التجربة لازم رقم البائع يكون مربوط بالـ Sandbox.'}
+    </div>
+    <div style="margin-top:14px;background:var(--green-soft);border-radius:12px;padding:10px 14px;text-align:center;font-size:13px">
+      رقم محادثتك: <b>#${data.convNo}</b> — احفظه للمتابعة
+    </div>`;
+  document.getElementById('soumSuccessOverlay').classList.add('open');
+}
+function closeSoumSuccess(){ document.getElementById('soumSuccessOverlay').classList.remove('open'); }
+
+/* ---------- Soum offer ---------- */
+function openSoum(idx){
+  soumIdx = idx;
+  const l = listings[idx];
+  document.getElementById('soumSub').textContent =
+    '«' + l.t + '»' + (l.p ? ' — السعر المطلوب ' + fmt(l.p) + ' ريال' : '') +
+    ' — سومتك توصل ' + (l.seller||'البائع') + ' في واتسابه فوراً ورقمك يظل مخفي';
+  document.getElementById('soumOverlay').classList.add('open');
+  document.getElementById('s-amount').focus();
+}
+function closeSoum(){ document.getElementById('soumOverlay').classList.remove('open'); }
+
+/* ---------- تحقق الواتساب (بديل تسجيل الدخول — مرة وحدة لكل رقم) ---------- */
+const verifiedPhones = {}; // في النسخة الحقيقية: كوكي/جلسة + قاعدة بيانات
+let pendingVerify = null;  // {phone, onSuccess}
+let demoCode = '';
+
+function needsVerify(phone, onSuccess){
+  if(verifiedPhones[phone]){ onSuccess(); return; }
+  pendingVerify = {phone, onSuccess};
+
+  if(liveMode){
+    // تحقق حقيقي: الرمز يوصل واتساب المستخدم — ما ينعرض أبداً
+    document.getElementById('verifySub').textContent = '⏳ نرسل رمز التحقق لواتساب ' + phone + '…';
+    document.getElementById('v-code').value = '';
+    document.getElementById('verifyOverlay').classList.add('open');
+    fetch(API + '/send-otp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({phone})
+    }).then(r=>r.json()).then(data=>{
+      if(data.alreadyVerified){
+        // موثق سابقاً في القاعدة — كمل مباشرة
+        verifiedPhones[phone] = true;
+        closeVerify();
+        onSuccess();
+        return;
+      }
+      if(data.error === 'blocked'){ closeVerify(); toast('🚫 هذا الرقم محظور'); return; }
+      document.getElementById('verifySub').textContent = data.waSent
+        ? '📲 أدخل الرمز المرسل على واتساب ' + phone + ' — تحقق مرة وحدة بس، بدون حساب ولا كلمة مرور.'
+        : '⚠️ تعذر إرسال الرمز لواتسابك (' + (data.waError||'') + ') — في مرحلة التجربة: تأكد أن رقمك مربوط بالـ Sandbox (أرسل join للرقم التجريبي) ثم أعد المحاولة.';
+      document.getElementById('v-code').focus();
+    }).catch(()=>{
+      document.getElementById('verifySub').textContent = 'خطأ في الاتصال — سكّر النافذة وحاول مرة ثانية';
+    });
+    return;
+  }
+
+  toast('الموقع غير متصل — ما نقدر نرسل رمز التحقق');
+}
+function confirmVerify(){
+  const entered = document.getElementById('v-code').value.trim();
+
+  if(liveMode){
+    if(!/^\d{4}$/.test(entered)){ toast('اكتب الرمز المكون من 4 أرقام'); return; }
+    fetch(API + '/check-otp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({phone: pendingVerify.phone, code: entered})
+    }).then(r=>r.json()).then(data=>{
+      if(!data.ok){ toast(data.message || 'الرمز غير صحيح'); return; }
+      verifiedPhones[pendingVerify.phone] = true;
+      document.getElementById('verifyOverlay').classList.remove('open');
+      toast('✓ تم التحقق — ما بنطلبه منك مرة ثانية');
+      const cb = pendingVerify.onSuccess;
+      pendingVerify = null;
+      cb();
+    }).catch(()=>toast('خطأ في الاتصال — حاول مرة ثانية'));
+    return;
+  }
+
+  toast('الموقع غير متصل');
+}
+function closeVerify(){
+  document.getElementById('verifyOverlay').classList.remove('open');
+  pendingVerify = null;
+}
+
+let waData = null; // بيانات المحادثة الحالية للمعاينة
+const deals = []; // سجل الصفقات — يظهر في لوحة المالك
+const FEE_PCT = 0.01, FEE_MIN = 5; // 1% وبحد أدنى 5 ريال
+const calcFee = amount => Math.max(Math.round(amount * FEE_PCT), FEE_MIN);
+const conversations = {}; // مفتاح: جوال المشتري + رقم الإعلان → {convId, lastAmount}
+let convCounter = 1042;
+
+function sendSoum(){
+  if(soumIdx===null) return;
+  const l = listings[soumIdx];
+  const amount = parseInt(document.getElementById('s-amount').value);
+  const name = document.getElementById('s-name').value.trim();
+  const phone = document.getElementById('s-phone').value.trim().replace(/\s/g,'');
+  const msg = document.getElementById('s-msg').value.trim();
+
+  if(!amount || amount<=0){ toast('اكتب مبلغ السومة 🙂'); return; }
+  if(!name){ toast('اكتب اسمك عشان يعرفك البائع'); return; }
+  if(!/^05\d{8}$/.test(phone)){ toast('اكتب رقم واتساب صحيح يبدأ بـ 05'); return; }
+  if(blockedPhones[phone]){ toast('🚫 هذا الرقم محظور من تقديم السومات'); return; }
+
+  // أول سومة من هالرقم؟ تحقق مرة وحدة ثم كمل تلقائياً
+  if(!verifiedPhones[phone]){
+    needsVerify(phone, ()=>sendSoum());
+    return;
+  }
+
+  const l2 = listings[soumIdx];
+  if(liveMode && l2.dbId){
+    // سومة حقيقية: تسجيل في القاعدة + واتساب فعلي للبائع
+    const btnLabel = document.querySelector('#soumOverlay .primary');
+    if(btnLabel){ btnLabel.disabled = true; btnLabel.textContent = '⏳ نرسل سومتك…'; }
+    fetch(API + '/send-soum', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({listingId:l2.dbId, amount, name, phone, message:msg})
+    }).then(r=>r.json()).then(data=>{
+      if(btnLabel){ btnLabel.disabled = false; btnLabel.textContent = 'أرسل السومة للبائع 📲'; }
+      if(!data.ok){ toast(data.message || 'تعذر إرسال السومة'); return; }
+      if(!data.isUpdate) l2.soums = (l2.soums||0) + 1;
+      closeSoum();
+      ['s-amount','s-name','s-phone','s-msg'].forEach(id=>document.getElementById(id).value='');
+      render();
+      // تأكيد نظيف — بدون معاينات تعليمية في الوضع الحي
+      showSoumSuccess(data, l2, amount);
+    }).catch(()=>{
+      if(btnLabel){ btnLabel.disabled = false; btnLabel.textContent = 'أرسل السومة للبائع 📲'; }
+      toast('خطأ في الاتصال — حاول مرة ثانية');
+    });
+    return;
+  }
+
+  toast('الموقع غير متصل — ما نقدر نرسل السومة'); return;
+  // (مسار المحاكاة معطل في نسخة النشر)
+  const key = phone + ':' + soumIdx;
+  let isUpdate = false, prevAmount = null;
+  if(conversations[key]){
+    isUpdate = true;
+    prevAmount = conversations[key].lastAmount;
+    conversations[key].lastAmount = amount;
+  } else {
+    conversations[key] = {convId: convCounter++, lastAmount: amount};
+    l.soums = (l.soums||0) + 1; // العداد يزيد فقط للسومات الجديدة، مو التعديلات
+  }
+  const convId = conversations[key].convId;
+
+  waData = {l, amount, name, msg, convId, isUpdate, prevAmount};
+  dealStage = 'ask'; // كل سومة تبدأ الدورة من أولها
+  waTab('seller');
+
+  closeSoum();
+  document.getElementById('waOverlay').classList.add('open');
+  ['s-amount','s-name','s-phone','s-msg'].forEach(id=>document.getElementById(id).value='');
+  render();
+}
+
+function waTab(side){
+  if(!waData) return;
+  const oldSys = document.getElementById('waSysMsg');
+  if(oldSys) oldSys.remove();
+  const {l, amount, name, msg, convId, isUpdate, prevAmount} = waData;
+  document.getElementById('tabSeller').classList.toggle('on', side==='seller');
+  document.getElementById('tabBuyer').classList.toggle('on', side==='buyer');
+  document.getElementById('tabDeal').classList.toggle('on', side==='deal');
+
+  if(side==='deal'){ renderDealTab(); return; }
+  const msgEl = document.getElementById('waMsg');
+  const replyEl = document.getElementById('waReply');
+  const noteEl = document.getElementById('waNote');
+
+  if(side==='seller'){
+    document.getElementById('waHeadTitle').textContent = 'واتساب البائع (' + (l.seller||'البائع') + ')';
+    const header = isUpdate
+      ? `🔄 *${name} عدّل سومته على إعلانك*\n\n📦 المنتج: ${l.t}\n💰 السومة الجديدة: *${fmt(amount)} ريال* (كانت ${fmt(prevAmount)})`
+      : `🔔 *سومة جديدة على إعلانك في سُوم*\n\n📦 المنتج: ${l.t}${l.p ? '\n🏷️ سعرك المطلوب: ' + fmt(l.p) + ' ريال' : ''}\n💰 مبلغ السومة: *${fmt(amount)} ريال*\n👤 المشتري: ${name}`;
+    msgEl.textContent =
+`${header}${msg ? '\n💬 رسالته: ' + msg : ''}
+
+↩️ *للرد: اسحب هذي الرسالة ورد عليها* — كذا يضمن النظام إن ردك يروح لهالمشتري وهالمنتج بالذات، حتى لو عندك محادثات ثانية. رقمك يظل مخفي.
+
+محادثة #${convId} — سُوم`;
+    msgEl.innerHTML = msgEl.innerHTML.replace(/\*(.+?)\*/g,'<b>$1</b>') + '<span class="time">الآن ✓✓</span>';
+    replyEl.style.display = 'block';
+    replyEl.textContent = 'وعليكم السلام، آخر شي عندي ' + fmt(Math.round(amount*1.12/50)*50) + ' والمعاينة اليوم العصر 👍';
+    replyEl.innerHTML += '<span class="time">الآن ✓✓ (رد البائع — مثال)</span>';
+    noteEl.textContent = isUpdate
+      ? 'لاحظ: ما انفتحت محادثة جديدة — نفس المحادثة #' + convId + ' تحدّثت، عشان ما تصير لخبطة عند البائع'
+      : 'البائع يسحب الرسالة ويرد — Twilio يمرر معرف الرسالة المردود عليها لسيرفرك فيعرف المحادثة بدقة';
+  } else {
+    document.getElementById('waHeadTitle').textContent = 'واتساب المشتري (' + name + ')';
+    msgEl.textContent =
+`💬 *رد البائع على سومتك*
+
+📦 «${l.t}»
+سومتك: ${fmt(amount)} ريال
+
+"${'وعليكم السلام، آخر شي عندي ' + fmt(Math.round(amount*1.12/50)*50) + ' والمعاينة اليوم العصر 👍'}"
+
+↩️ *للرد: اسحب هذي الرسالة ورد عليها* — رقم البائع مخفي عنك.
+
+محادثة #${convId} — سُوم`;
+    msgEl.innerHTML = msgEl.innerHTML.replace(/\*(.+?)\*/g,'<b>$1</b>') + '<span class="time">الآن ✓✓</span>';
+    replyEl.style.display = 'none';
+    noteEl.textContent = 'نفس الحماية للمشتري: لو عنده سومات على كذا منتج، الرد بالسحب يوصل للبائع الصحيح دائماً';
+  }
+}
+
+let dealStage = 'ask'; // ask → reveal → followup → invoice/notdone — أو no (رجوع للتفاوض)
+const unpaidInvoices = {}; // رقم البائع → convId — يقيد الحساب لحين السداد
+
+function renderDealTab(){
+  const {l, amount, name, convId} = waData;
+  const fee = calcFee(amount);
+  document.getElementById('waHeadTitle').textContent = 'مرحلة إتمام الصفقة — محادثة #' + convId;
+  const msgEl = document.getElementById('waMsg');
+  const replyEl = document.getElementById('waReply');
+  const noteEl = document.getElementById('waNote');
+
+  replyEl.style.display = 'block';
+  replyEl.textContent = 'أقبل البيعة ✅';
+  replyEl.innerHTML += '<span class="time">رسالة المشتري ✓✓</span>';
+
+  const stamp = t => '<span class="time">' + t + ' ✓✓</span>';
+  const bold = s => s.replace(/\*(.+?)\*/g,'<b>$1</b>');
+
+  if(dealStage === 'ask'){
+    msgEl.textContent =
+`🤝 *${name} يبي يتمم الصفقة*
+
+📦 ${l.t}
+💰 المبلغ: *${fmt(amount)} ريال*
+
+هل تقبل الصفقة؟`;
+    msgEl.innerHTML = bold(msgEl.innerHTML) + stamp('للبائع — من سُوم');
+    msgEl.insertAdjacentHTML('afterend',
+      `<div class="wa-btns" id="waSysMsg">
+        <button class="wa-btn" onclick="dealAnswer('reveal')">✅ نعم، أقبل</button>
+        <button class="wa-btn" onclick="dealAnswer('no')">❌ لا، أكمل التفاوض</button>
+      </div>`);
+    noteEl.textContent = 'أزرار رد سريع (Quick Reply عبر Twilio) — القبول هنا مجاني بالكامل، ما فيه أي رسوم مقدمة';
+
+  } else if(dealStage === 'reveal'){
+    msgEl.textContent =
+`✅ *تم! كشفنا أرقامكم — بدون أي رسوم*
+
+📱 رقم ${name}: 05******${String(convId).slice(-2)}
+(ووصله رقمك بنفس اللحظة)
+
+كلموا بعض واتفقوا على المعاينة والاستلام 🤝
+
+📌 بكرة بنرسل لكم انتوا الاثنين سؤال بسيط: هل تمت الصفقة؟ — الرسوم (${fmt(fee)} ريال) تنقيد فقط إذا أكدتوا الاثنين إنها تمت فعلاً.`;
+    msgEl.innerHTML = bold(msgEl.innerHTML) + stamp('للبائع — من سُوم');
+    msgEl.insertAdjacentHTML('afterend',
+      `<div class="wa-btns" id="waSysMsg">
+        <button class="wa-btn" onclick="dealAnswer('followup')">⏭️ محاكاة: وصلنا لليوم التالي</button>
+      </div>`);
+    noteEl.textContent = 'هنا الفرق الجوهري: الأرقام انكشفت مجاناً — الرسوم صارت بعد الإتمام الفعلي مو قبله. عادلة للبائع 100%';
+
+  } else if(dealStage === 'followup'){
+    msgEl.textContent =
+`🌤️ *متابعة صفقة #${convId}*
+
+📦 ${l.t} — مع ${name}
+
+هل تمت الصفقة والاستلام؟`;
+    msgEl.innerHTML = bold(msgEl.innerHTML) + stamp('اليوم التالي — للطرفين');
+    msgEl.insertAdjacentHTML('afterend',
+      `<div class="wa-btns" id="waSysMsg">
+        <button class="wa-btn" onclick="dealAnswer('invoice')">✅ نعم، تمت</button>
+        <button class="wa-btn" onclick="dealAnswer('notdone')">❌ ما تمت</button>
+      </div>`);
+    noteEl.textContent = 'نفس السؤال وصل المشتري بنفس اللحظة — الفاتورة تصدر فقط لو أكد الطرفان «نعم». تأكيد طرف واحد ما يكفي (حماية من الأخطاء والكيد)';
+
+  } else if(dealStage === 'invoice'){
+    const paid = deals.some(d=>d.convId===convId && d.status==='done');
+    msgEl.textContent =
+`🧾 *فاتورة رسوم صفقة مكتملة*
+
+أكدتوا انتوا الاثنين إتمام الصفقة ✅
+
+📦 ${l.t}
+💰 مبلغ الصفقة: ${fmt(amount)} ريال
+💳 رسوم سُوم (1%): *${fmt(fee)} ريال*
+⏳ مهلة السداد: *48 ساعة*
+
+⚠️ ملاحظة: لحين السداد ما تقدر تنشر إعلانات جديدة أو تستقبل سومات.`;
+    msgEl.innerHTML = bold(msgEl.innerHTML) + stamp('للبائع — فاتورة من سُوم');
+    msgEl.insertAdjacentHTML('afterend',
+      paid
+      ? `<div class="wa-sys" id="waSysMsg">✅ <b>تم السداد</b> — حسابك رجع نشط بالكامل
+💵 رسومك <b>${fmt(fee)} ريال</b> انقيدت في لوحة المالك كإيراد محصّل</div>`
+      : `<div class="wa-sys" id="waSysMsg">🔗 <b>رابط الدفع</b> (Moyasar / Tap — مدى وApple Pay)
+<span class="paylink" onclick="payInvoice(${fee})">💳 ادفع ${fmt(fee)} ريال — محاكاة</span></div>`);
+    if(!paid) registerInvoice(fee);
+    noteEl.textContent = 'أداة التحصيل: تقييد الحساب مو حجب الأرقام — البائع ما يضحي بمستقبله في المنصة عشان ' + fmt(fee) + ' ريال. جرب تنشر إعلان بنفس رقم البائع قبل السداد';
+
+  } else if(dealStage === 'notdone'){
+    msgEl.textContent =
+`👍 *تمام — ما انقيدت أي رسوم*
+
+سجلنا إن الصفقة ما تمت. المحادثة بينكم لسا مفتوحة لو حبيتوا ترجعون تتفاوضون، وإذا اتفقتوا لاحقاً بنسأل من جديد.`;
+    msgEl.innerHTML = bold(msgEl.innerHTML) + stamp('للطرفين — من سُوم');
+    msgEl.insertAdjacentHTML('afterend',
+      `<div class="wa-btns" id="waSysMsg">
+        <button class="wa-btn" onclick="dealStage='ask';waTab('seller')">↩️ رجوع للمحادثة</button>
+      </div>`);
+    noteEl.textContent = 'ما دفع أحد شي على صفقة ما تمت — هذي العدالة اللي تبني الثقة وتخلي البائعين يجاوبون بصدق';
+
+  } else {
+    // dealStage === 'no' — رفض القبول من البداية
+    msgEl.textContent =
+`👍 *تمام، ما انقفلت الصفقة*
+
+رديت على ${name} إن العرض ما ناسبك — المحادثة بينكم لسا مفتوحة.
+
+اكتب ردك العادي (سعرك، شروطك...) وبيوصله فوراً، وإذا اتفقتوا من جديد يرسل «أقبل البيعة» وترجع لك رسالة التأكيد.`;
+    msgEl.innerHTML = bold(msgEl.innerHTML) + stamp('للبائع — من سُوم');
+    msgEl.insertAdjacentHTML('afterend',
+      `<div class="wa-btns" id="waSysMsg">
+        <button class="wa-btn" onclick="dealStage='ask';waTab('seller')">↩️ رجوع للمحادثة</button>
+      </div>`);
+    noteEl.textContent = 'الدورة تعيد نفسها بلا حدود: تفاوض → قبول → كشف أرقام → متابعة → إما فاتورة أو رجوع';
+  }
+}
+
+function dealAnswer(next){
+  dealStage = next;
+  waTab('deal');
+  const msgs = {
+    reveal:'البائع قبل ✅ — انكشفت الأرقام للطرفين مجاناً',
+    no:'البائع ضغط ❌ — المحادثة رجعت مفتوحة للتفاوض',
+    followup:'اليوم التالي: وصلت رسالة المتابعة للطرفين',
+    invoice:'أكد الطرفان الإتمام ✅ — صدرت الفاتورة وانقيد الحساب لحين السداد',
+    notdone:'الصفقة ما تمت — صفر رسوم والمحادثة مفتوحة'
+  };
+  if(msgs[next]) toast(msgs[next]);
+}
+
+function registerInvoice(fee){
+  const {l, amount, name, convId} = waData;
+  if(deals.some(d=>d.convId===convId)) return;
+  deals.push({convId, item:l.t, seller:l.seller||'بائع', buyer:name, amount, fee, status:'pending', when:'الآن'});
+  if(l.wa) unpaidInvoices[l.wa] = convId;
+}
+
+function payInvoice(fee){
+  const {l, convId} = waData;
+  const d = deals.find(x=>x.convId===convId);
+  if(d) d.status = 'done';
+  if(l.wa) delete unpaidInvoices[l.wa];
+  toast('✓ سدد البائع ' + fmt(fee) + ' ريال — حسابه رجع نشط والإيراد انقيد في لوحتك');
+  waTab('deal');
+}
+
+/* ==================== لوحة المالك ==================== */
+const blockedPhones = {}; // رقم → سبب/تاريخ — الحظر يطبق فعلياً على النشر والسوم
+
+// بيانات زوار توضيحية (في النسخة الحقيقية: أداة تحليلات + سجلات السيرفر)
+const DAYS = ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
+const visitWeek = [142, 168, 131, 189, 215, 174, 96]; // آخر 7 أيام — اليوم هو الأخير قبل الجمعة
+let todayVisits = 118; // + زيارتك الحالية تنحسب
+const visitorSessions = [
+  {time:'14:22', city:'الرياض',  device:'📱 جوال',  source:'بحث قوقل',   pages:6, action:'قدّم سومة'},
+  {time:'14:10', city:'جدة',     device:'📱 جوال',  source:'سناب شات',   pages:3, action:'تصفح'},
+  {time:'13:55', city:'الرياض',  device:'💻 كمبيوتر',source:'مباشر',      pages:9, action:'أضاف إعلان'},
+  {time:'13:41', city:'الدمام',  device:'📱 جوال',  source:'واتساب',     pages:4, action:'قدّم سومة'},
+  {time:'13:20', city:'أبها',    device:'📱 جوال',  source:'بحث قوقل',   pages:2, action:'تصفح'},
+  {time:'12:58', city:'مكة',     device:'📱 جوال',  source:'تويتر (X)',  pages:5, action:'بحث ذكي ✨'},
+  {time:'12:33', city:'الرياض',  device:'💻 كمبيوتر',source:'مباشر',      pages:7, action:'قدّم سومة'},
+];
+
+function openAdmin(){
+  document.getElementById('admin').classList.add('open');
+  adminTab('overview');
+}
+function closeAdmin(){ document.getElementById('admin').classList.remove('open'); }
+
+function adminTab(t){
+  document.querySelectorAll('#adminNav button').forEach(b=>b.classList.toggle('on', b.dataset.t===t));
+  const el = document.getElementById('adminContent');
+  if(t==='overview') el.innerHTML = viewOverview();
+  if(t==='products') el.innerHTML = viewProducts();
+  if(t==='sellers')  el.innerHTML = viewSellers();
+  if(t==='visitors') el.innerHTML = viewVisitors();
+  if(t==='finance')  el.innerHTML = viewFinance();
+  if(t==='blocked')  el.innerHTML = viewBlocked();
+}
+
+/* ---------- الإحصائيات المشتقة ---------- */
+function sellersMap(){
+  const m = {};
+  listings.forEach(l=>{
+    const key = l.wa || 'غير معروف';
+    if(!m[key]) m[key] = {name:l.seller||'بائع', wa:key, ads:0, soums:0, deals:0, fees:0};
+    m[key].ads++; m[key].soums += (l.soums||0);
+  });
+  deals.forEach(d=>{
+    const seller = Object.values(m).find(x=>x.name===d.seller);
+    if(seller){ seller.deals++; if(d.status==='done') seller.fees += d.fee; }
+  });
+  return Object.values(m);
+}
+const totalSoums = () => listings.reduce((s,l)=>s+(l.soums||0),0);
+const totalRevenue = () => deals.filter(d=>d.status==='done').reduce((s,d)=>s+d.fee,0);
+const pendingFees  = () => deals.filter(d=>d.status==='pending').reduce((s,d)=>s+d.fee,0);
+
+/* ---------- نظرة عامة ---------- */
+function viewOverview(){
+  const sellers = sellersMap();
+  const conv = totalSoums() ? Math.round(deals.length/totalSoums()*100) : 0;
+  return `
+  <div class="kpis">
+    <div class="kpi"><div class="v money">${fmt(totalRevenue())} ﷼</div><div class="k">💵 إجمالي إيراداتك</div></div>
+    <div class="kpi"><div class="v">${fmt(deals.filter(d=>d.status==='done').length)}</div><div class="k">✅ صفقات محصلة</div></div>
+    <div class="kpi"><div class="v money">${fmt(pendingFees())} ﷼</div><div class="k">⏳ رسوم معلقة</div></div>
+    <div class="kpi"><div class="v">${fmt(listings.length)}</div><div class="k">📦 إعلانات نشطة</div></div>
+    <div class="kpi"><div class="v">${fmt(sellers.length)}</div><div class="k">👥 بائعون</div></div>
+    <div class="kpi"><div class="v">${fmt(totalSoums())}</div><div class="k">🤝 إجمالي السومات</div></div>
+    <div class="kpi"><div class="v">${fmt(todayVisits)}</div><div class="k">👁️ زوار اليوم</div></div>
+    <div class="kpi"><div class="v">${conv}%</div><div class="k">📈 تحويل السومات لصفقات</div></div>
+    <div class="kpi"><div class="v">${fmt(Object.keys(blockedPhones).length)}</div><div class="k">🚫 أرقام محظورة</div></div>
+  </div>
+  <div class="panel">
+    <h3>👁️ الزيارات — آخر 7 أيام</h3>
+    ${weekChart()}
+  </div>
+  <div class="panel">
+    <h3>🕐 آخر الصفقات</h3>
+    ${deals.length ? `<div class="tbl-wrap"><table class="admin-table">
+      <tr><th>#</th><th>المنتج</th><th>المبلغ</th><th>رسومك</th></tr>
+      ${deals.slice(-4).reverse().map(d=>`<tr><td>#${d.convId}</td><td>${esc(d.item.slice(0,30))}</td><td>${fmt(d.amount)} ﷼</td><td><b>${fmt(d.fee)} ﷼</b></td></tr>`).join('')}
+    </table></div>` : '<div class="note">ما فيه صفقات بعد — أول صفقة تكتمل بتظهر هنا</div>'}
+  </div>`;
+}
+
+function weekChart(){
+  const max = Math.max(...visitWeek, todayVisits);
+  const bars = [...visitWeek.slice(1), todayVisits];
+  const labels = [...DAYS.slice(1,7), 'اليوم'];
+  return `<div class="vbars">${bars.map((v,i)=>`
+    <div class="vbar ${i===bars.length-1?'today':''}">
+      <div class="col" style="height:${Math.round(v/max*100)}%"><b>${v}</b></div>
+      <div class="day">${labels[i]}</div>
+    </div>`).join('')}</div>`;
+}
+
+/* ---------- المنتجات ---------- */
+function viewProducts(){
+  const byCat = CATS.filter(c=>c.id!=='all').map(c=>({
+    label:c.label, emoji:c.emoji,
+    count: listings.filter(l=>l.c===c.id).length
+  }));
+  const maxC = Math.max(...byCat.map(c=>c.count), 1);
+  const topSoum = [...listings].sort((a,b)=>(b.soums||0)-(a.soums||0)).slice(0,5);
+  const soldCount = {};
+  deals.forEach(d=>{ soldCount[d.item] = (soldCount[d.item]||0)+1; });
+  const topSold = Object.entries(soldCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  return `
+  <div class="panel" style="margin-top:0">
+    <h3>📦 المنتجات حسب التصنيف (${fmt(listings.length)} إعلان)</h3>
+    ${byCat.map(c=>`<div class="hbar">
+      <span class="lbl">${c.emoji} ${c.label}</span>
+      <div class="track"><div class="fill" style="width:${Math.max(Math.round(c.count/maxC*100),4)}%">${c.count}</div></div>
+    </div>`).join('')}
+  </div>
+  <div class="panel">
+    <h3>🔥 الأكثر تفاعلاً (سومات)</h3>
+    <div class="tbl-wrap"><table class="admin-table">
+      <tr><th>المنتج</th><th>البائع</th><th>المدينة</th><th>السومات</th></tr>
+      ${topSoum.map(l=>`<tr><td>${esc(l.t.slice(0,35))}</td><td>${esc(l.seller||'-')}</td><td>${l.city}</td><td><b>🤝 ${fmt(l.soums||0)}</b></td></tr>`).join('')}
+    </table></div>
+  </div>
+  <div class="panel">
+    <h3>🏆 الأكثر مبيعاً (صفقات مكتملة)</h3>
+    ${topSold.length ? `<div class="tbl-wrap"><table class="admin-table">
+      <tr><th>المنتج</th><th>عدد الصفقات</th></tr>
+      ${topSold.map(([item,n])=>`<tr><td>${esc(item.slice(0,40))}</td><td><b>${n}</b></td></tr>`).join('')}
+    </table></div>` : '<div class="note">تظهر بعد اكتمال أول صفقة</div>'}
+  </div>`;
+}
+
+/* ---------- البائعون ---------- */
+function viewSellers(){
+  const sellers = sellersMap();
+  return `
+  <div class="panel" style="margin-top:0">
+    <h3>👥 البائعون (${sellers.length})</h3>
+    <div class="tbl-wrap"><table class="admin-table">
+      <tr><th>البائع</th><th>واتساب</th><th>إعلانات</th><th>سومات</th><th>صفقات</th><th>رسوم دفعها</th><th>الحالة</th><th></th></tr>
+      ${sellers.map(x=>{
+        const blocked = !!blockedPhones[x.wa];
+        return `<tr>
+          <td><b>${esc(x.name)}</b></td>
+          <td dir="ltr" style="text-align:right">${x.wa}</td>
+          <td>${x.ads}</td><td>${fmt(x.soums)}</td><td>${x.deals}</td>
+          <td>${fmt(x.fees)} ﷼</td>
+          <td><span class="st ${blocked?'blocked':(unpaidInvoices[x.wa]?'blocked':'ok')}">${blocked?'محظور 🚫':(unpaidInvoices[x.wa]?'فاتورة معلقة ⏳':'نشط ✓')}</span></td>
+          <td><button class="${blocked?'btn-unblock':'btn-block'}" onclick="toggleBlock('${x.wa}');adminTab('sellers')">${blocked?'فك الحظر':'حظر'}</button></td>
+        </tr>`;
+      }).join('')}
+    </table></div>
+    <div class="note">الحظر يمنع الرقم فوراً من نشر إعلانات وتقديم سومات — جربه ثم حاول تنشر بنفس الرقم</div>
+  </div>`;
+}
+
+/* ---------- الزوار ---------- */
+function viewVisitors(){
+  const week = visitWeek.reduce((a,b)=>a+b,0) + todayVisits;
+  const mobile = Math.round(visitorSessions.filter(v=>v.device.includes('جوال')).length / visitorSessions.length * 100);
+  return `
+  <div class="kpis">
+    <div class="kpi"><div class="v">${fmt(todayVisits)}</div><div class="k">👁️ زوار اليوم</div></div>
+    <div class="kpi"><div class="v">${fmt(week)}</div><div class="k">📅 زوار الأسبوع</div></div>
+    <div class="kpi"><div class="v">${mobile}%</div><div class="k">📱 من الجوال</div></div>
+    <div class="kpi"><div class="v">4.8</div><div class="k">📄 متوسط الصفحات للزيارة</div></div>
+  </div>
+  <div class="panel">
+    <h3>👁️ الزيارات — آخر 7 أيام</h3>
+    ${weekChart()}
+  </div>
+  <div class="panel">
+    <h3>🕐 آخر الجلسات</h3>
+    <div class="tbl-wrap"><table class="admin-table">
+      <tr><th>الوقت</th><th>المدينة</th><th>الجهاز</th><th>المصدر</th><th>صفحات</th><th>آخر إجراء</th></tr>
+      ${visitorSessions.map(v=>`<tr>
+        <td>${v.time}</td><td>${v.city}</td><td>${v.device}</td>
+        <td>${v.source}</td><td>${v.pages}</td><td>${v.action}</td>
+      </tr>`).join('')}
+    </table></div>
+    <div class="note">⚠️ بيانات الزوار هنا توضيحية للنموذج — في النسخة الحقيقية تربط أداة تحليلات (مثل Plausible أو Google Analytics) وتظهر بياناتك الفعلية هنا بنفس الشكل. تنبيه خصوصية: نظام حماية البيانات الشخصية السعودي (PDPL) يتطلب سياسة خصوصية توضح وش تجمعه عن الزوار.</div>
+  </div>`;
+}
+
+/* ---------- المالية ---------- */
+function viewFinance(){
+  const rev = totalRevenue();
+  const avgDeal = deals.length ? Math.round(deals.reduce((s,d)=>s+d.amount,0)/deals.length) : 0;
+  // تقدير التكاليف التشغيلية بناء على النشاط الفعلي في الجلسة
+  const waCost = Math.round(totalSoums() * 12 * 0.04); // ~12 رسالة لكل سومة × 4 هللات
+  const aiCost = Math.round(listings.length * 0.02 + totalSoums() * 0.01);
+  const gatewayCost = Math.round(deals.filter(d=>d.status==='done').reduce((s,d)=>s + d.fee*0.025 + 1, 0));
+  const net = rev - waCost - aiCost - gatewayCost;
+  return `
+  <div class="kpis">
+    <div class="kpi"><div class="v money">${fmt(rev)} ﷼</div><div class="k">💵 إجمالي الإيرادات</div></div>
+    <div class="kpi"><div class="v">${fmt(deals.length)}</div><div class="k">✅ صفقات مدفوعة</div></div>
+    <div class="kpi"><div class="v">${fmt(avgDeal)} ﷼</div><div class="k">📊 متوسط قيمة الصفقة</div></div>
+    <div class="kpi"><div class="v money">${deals.length?fmt(Math.round(rev/deals.length)):0} ﷼</div><div class="k">💰 متوسط رسومك للصفقة</div></div>
+  </div>
+  <div class="panel">
+    <h3>🧾 قيود الشهر (تقديرية حسب نشاط الجلسة)</h3>
+    <div class="fin-row"><span>إيرادات محصلة (رسوم مدفوعة)</span><b class="pos">+ ${fmt(rev)} ﷼</b></div>
+    <div class="fin-row"><span>رسوم معلقة التحصيل (مهلة 48 ساعة)</span><b style="color:var(--amber)">⏳ ${fmt(pendingFees())} ﷼</b></div>
+    <div class="fin-row"><span>تكلفة رسائل واتساب (Twilio + Meta)</span><b class="neg">− ${fmt(waCost)} ﷼</b></div>
+    <div class="fin-row"><span>تكلفة الذكاء الاصطناعي (Claude API)</span><b class="neg">− ${fmt(aiCost)} ﷼</b></div>
+    <div class="fin-row"><span>رسوم بوابة الدفع (~2.5% + 1﷼)</span><b class="neg">− ${fmt(gatewayCost)} ﷼</b></div>
+    <div class="fin-row total"><span>الصافي</span><b class="${net>=0?'pos':'neg'}">${net>=0?'+':'−'} ${fmt(Math.abs(net))} ﷼</b></div>
+  </div>
+  <div class="panel">
+    <h3>💵 سجل الصفقات</h3>
+    ${deals.length ? `<div class="tbl-wrap"><table class="admin-table">
+      <tr><th>#</th><th>المنتج</th><th>البائع</th><th>المشتري</th><th>المبلغ</th><th>رسومك</th><th>الحالة</th></tr>
+      ${[...deals].reverse().map(d=>`<tr>
+        <td>#${d.convId}</td><td>${esc(d.item.slice(0,28))}</td><td>${esc(d.seller)}</td>
+        <td>${esc(d.buyer)}</td><td>${fmt(d.amount)} ﷼</td><td><b>${fmt(d.fee)} ﷼</b></td>
+        <td><span class="st ${d.status==='done'?'ok':'blocked'}">${d.status==='done'?'مدفوعة ✓':'معلقة ⏳'}</span></td>
+      </tr>`).join('')}
+    </table></div>` : '<div class="note">ما فيه صفقات بعد — جرب دورة سومة كاملة من الموقع</div>'}
+  </div>`;
+}
+
+/* ---------- الحظر ---------- */
+function viewBlocked(){
+  const list = Object.entries(blockedPhones);
+  return `
+  <div class="panel" style="margin-top:0">
+    <h3>🚫 حظر رقم جوال</h3>
+    <div class="block-add">
+      <input id="blockInput" type="tel" placeholder="05xxxxxxxx" dir="ltr" style="text-align:right"
+        onkeydown="if(event.key==='Enter')blockFromInput()">
+      <button onclick="blockFromInput()">حظر الرقم</button>
+    </div>
+    ${list.length ? `<div class="tbl-wrap"><table class="admin-table">
+      <tr><th>الرقم</th><th>تاريخ الحظر</th><th></th></tr>
+      ${list.map(([ph,when])=>`<tr>
+        <td dir="ltr" style="text-align:right"><b>${ph}</b></td><td>${when}</td>
+        <td><button class="btn-unblock" onclick="toggleBlock('${ph}');adminTab('blocked')">فك الحظر</button></td>
+      </tr>`).join('')}
+    </table></div>` : '<div class="note">ما فيه أرقام محظورة</div>'}
+    <div class="note">الرقم المحظور: ما يقدر ينشر إعلان، ما يقدر يسوم، وإعلاناته الحالية تختفي من الموقع فوراً. في النسخة الحقيقية يمتد الحظر لرسائل الواتساب الواردة كمان (تتجاهل في الـ Webhook).</div>
+  </div>`;
+}
+
+function toggleBlock(phone){
+  if(blockedPhones[phone]){
+    delete blockedPhones[phone];
+    toast('✓ انفك الحظر عن ' + phone);
+  } else {
+    blockedPhones[phone] = 'الآن';
+    toast('🚫 انحظر الرقم ' + phone + ' — ما يقدر ينشر ولا يسوم');
+  }
+  render(); // الإعلانات تتحدث (إخفاء/إظهار)
+}
+function blockFromInput(){
+  const ph = document.getElementById('blockInput').value.trim().replace(/\s/g,'');
+  if(!/^05\d{8}$/.test(ph)){ toast('اكتب رقم صحيح يبدأ بـ 05'); return; }
+  if(blockedPhones[ph]){ toast('الرقم محظور أصلاً'); return; }
+  toggleBlock(ph);
+  adminTab('blocked');
+}
+
+function closeWa(){
+  document.getElementById('waOverlay').classList.remove('open');
+  toast('✓ وصلت سومتك للبائع في واتسابه — رده بيوصل واتسابك');
+}
+
+/* ---------- Add listing + photos ---------- */
+function openModal(){ document.getElementById('overlay').classList.add('open'); document.getElementById('f-title').focus(); }
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+
+function handlePhotos(ev){
+  const files = Array.from(ev.target.files).slice(0, 5 - pendingPhotos.length);
+  files.forEach(f=>{
+    if(!f.type.startsWith('image/')) return;
+    const r = new FileReader();
+    r.onload = e=>{ pendingPhotos.push(e.target.result); renderPhotoPreviews(); };
+    r.readAsDataURL(f);
+  });
+  ev.target.value = '';
+}
+function renderPhotoPreviews(){
+  document.getElementById('photoPreviews').innerHTML = pendingPhotos.map((p,i)=>
+    `<div class="ph"><img src="${p}" alt=""><button onclick="removePhoto(${i})" aria-label="حذف الصورة">✕</button></div>`).join('');
+}
+function removePhoto(i){ pendingPhotos.splice(i,1); renderPhotoPreviews(); }
+
+function addListing(){
+  const t = document.getElementById('f-title').value.trim();
+  if(!t){ toast('اكتب وش تبيع أول 🙂'); return; }
+  const wa = document.getElementById('f-wa').value.trim().replace(/\s/g,'');
+  if(!/^05\d{8}$/.test(wa)){ toast('اكتب رقم واتسابك صحيح يبدأ بـ 05'); return; }
+  if(blockedPhones[wa]){ toast('🚫 هذا الرقم محظور من النشر — تواصل مع إدارة الموقع'); return; }
+  if(unpaidInvoices[wa]){ toast('⏳ عليك فاتورة رسوم غير مسددة (صفقة #' + unpaidInvoices[wa] + ') — سددها أول وحسابك يرجع نشط'); return; }
+
+  // أول إعلان من هالرقم؟ تحقق مرة وحدة — هذا "حساب" البائع كله
+  if(!verifiedPhones[wa]){
+    needsVerify(wa, ()=>addListing());
+    return;
+  }
+  const c = document.getElementById('f-cat').value;
+  const city = document.getElementById('f-city').value;
+  const desc = document.getElementById('f-desc').value.trim();
+  const notify = document.getElementById('f-notify').checked;
+  const priceVal = parseInt(document.getElementById('f-price').value);
+  const p = (priceVal && priceVal>0) ? priceVal : null;
+  const emoji = CATS.find(x=>x.id===c)?.emoji || '📦';
+
+  if(liveMode){
+    // نشر حقيقي في قاعدة البيانات
+    fetch(API + '/add-listing', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({title:t, description:desc, category:c, city, price:p, whatsapp:wa, sellerName:'بائع سُوم', notify})
+    }).then(r=>r.json()).then(data=>{
+      if(data.ok){
+        ['f-title','f-desc','f-wa','f-price'].forEach(id=>document.getElementById(id).value='');
+        pendingPhotos = []; renderPhotoPreviews();
+        closeModal(); activeCat='all'; renderCats();
+        showPublishSuccess(t, notify);
+        loadListings();
+        window.scrollTo({top:0, behavior:'smooth'});
+      } else {
+        toast(data.message || 'تعذر النشر — حاول مرة ثانية');
+      }
+    }).catch(()=>toast('خطأ في الاتصال — حاول مرة ثانية'));
+    return;
+  }
+
+  toast('الموقع غير متصل — ما نقدر ننشر'); return;
+  listings.unshift({t, p, c, city, time:'الآن', e:emoji, photos:[...pendingPhotos],
+    seller:'أنت', wa, notify, soums:0, desc: desc || 'تواصل مع البائع للتفاصيل.'});
+
+  ['f-title','f-desc','f-wa','f-price'].forEach(id=>document.getElementById(id).value='');
+  pendingPhotos = []; renderPhotoPreviews();
+  closeModal(); activeCat='all'; renderCats(); render();
+  toast(notify ? '✓ نزل إعلانك — كل سومة بتوصلك واتساب فوراً' : '✓ نزل إعلانك');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ---------- AI listing writer (داخلي) ---------- */
+async function aiWrite(){
+  const raw = document.getElementById('f-title').value.trim();
+  if(!raw){ toast('اكتب كلمتين عن منتجك أول ✍️'); document.getElementById('f-title').focus(); return; }
+  const btn = document.getElementById('aiBtn');
+  const btnTxt = document.getElementById('aiBtnTxt');
+  btn.disabled = true;
+  btnTxt.textContent = '✨ لحظات… نكتب إعلانك';
+  const catList = CATS.filter(c=>c.id!=='all').map(c=>c.id+' = '+c.label).join('، ');
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6', max_tokens:1000,
+        messages:[{role:'user',content:
+`أنت مساعد كتابة إعلانات في موقع "سُوم" — سوق سعودي: البائع يقدر يحدد سعر أو يترك المنتج على السوم، والمشترين يسومون عبر واتساب.
+البائع كتب: "${raw}"
+اكتب إعلان احترافي بلهجة سعودية بيضاء. لا تذكر أي سعر في العنوان أو الوصف — التسعير خانة مستقلة يحددها البائع بنفسه. أرجع JSON فقط بدون Markdown:
+{"title":"عنوان جذاب أقل من 60 حرف بدون سعر","desc":"وصف 2-3 جمل عن الحالة والمميزات، يختم بدعوة للسوم","category":"الأنسب من: ${catList}"}`}]
+      })
+    });
+    if(!res.ok) throw new Error('API '+res.status);
+    const data = await res.json();
+    const text = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const out = JSON.parse(text);
+    if(out.title) document.getElementById('f-title').value = out.title;
+    if(out.desc) document.getElementById('f-desc').value = out.desc;
+    if(out.category && CATS.some(c=>c.id===out.category))
+      document.getElementById('f-cat').value = out.category;
+    toast('كتبنا لك الإعلان ✨ راجعه وانشره');
+  }catch(err){
+    console.error('AI error:', err);
+    document.getElementById('f-desc').value =
+      raw + ' — بحالة ممتازة والاستخدام نظيف. المعاينة ممكنة، وسومتك توصلني واتساب وأرد عليك بسرعة.';
+    toast('الاتصال بالذكاء الاصطناعي ما نجح هنا — عبينا لك وصف مبدئي');
+  }finally{
+    btn.disabled = false;
+    btnTxt.textContent = '✨ اكتب إعلاني بالذكاء الاصطناعي';
+  }
+}
+
+/* ---------- AI smart search (داخلي) ---------- */
+async function aiSearch(){
+  const q = document.getElementById('search').value.trim();
+  if(!q){ toast('اكتب وش تدوّر أول 🙂'); return; }
+  const btn = document.getElementById('aiSearchBtn');
+  btn.disabled = true; btn.textContent = '⏳';
+  const catList = CATS.filter(c=>c.id!=='all').map(c=>c.id+' = '+c.label).join('، ');
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6', max_tokens:400,
+        messages:[{role:'user',content:
+`أنت محرك بحث ذكي في موقع "سُوم" — سوق سعودي بدون أسعار معلنة.
+المشتري كتب: "${q}"
+أرجع JSON فقط بدون Markdown:
+{"cat":"معرف التصنيف من: ${catList} أو null","city":"من: ${CITIES.join('، ')} أو null","keywords":["كلمات المنتج بدون المدينة"]}`}]
+      })
+    });
+    if(!res.ok) throw new Error('API '+res.status);
+    const data = await res.json();
+    const text = data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const out = JSON.parse(text);
+    applyAiFilters({
+      cat: CATS.some(c=>c.id===out.cat) ? out.cat : null,
+      city: CITIES.includes(out.city) ? out.city : null,
+      keywords: Array.isArray(out.keywords) ? out.keywords.filter(k=>typeof k==='string') : []
+    });
+  }catch(err){
+    console.error('AI search error:', err);
+    applyAiFilters(localParse(q));
+    toast('طبقنا فهم مبسط للبحث');
+  }finally{
+    btn.disabled = false; btn.textContent = '✨';
+  }
+}
+
+function localParse(q){
+  const f = {cat:null, city:null, keywords:[]};
+  f.city = CITIES.find(c=>q.includes(c)) || null;
+  const catWords = {phones:['جوال','ايفون','آيفون','ساعة'],cars:['سيارة','كامري','جيب'],
+    furn:['كنب','طاولة','مجلس','أثاث'],elec:['لابتوب','مكيف','كمبيوتر'],animals:['ماعز','غنم','طير'],
+    services:['خدمة','نقل','تنظيف','صيانة','سباك','كهربائي','تصميم','توصيل']};
+  for(const [id,words] of Object.entries(catWords))
+    if(words.some(w=>q.includes(w))){ f.cat=id; break; }
+  return f;
+}
+
+function applyAiFilters(f){
+  aiFilters = f;
+  query = '';
+  activeCat = 'all'; renderCats();
+  const parts = [];
+  if(f.cat) parts.push(CATS.find(c=>c.id===f.cat)?.label);
+  if(f.city) parts.push(f.city);
+  if(f.keywords?.length) parts.push(f.keywords.join('، '));
+  document.getElementById('aiBannerTxt').textContent = parts.length ? parts.join(' · ') : 'كل النتائج';
+  document.getElementById('aiBanner').style.display = 'flex';
+  render();
+}
+
+function clearAiSearch(){
+  aiFilters = null;
+  document.getElementById('aiBanner').style.display = 'none';
+  document.getElementById('search').value = '';
+  query = '';
+  render();
+}
+
+/* ---------- utils ---------- */
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+document.getElementById('search').addEventListener('input', e=>{
+  query = e.target.value;
+  if(aiFilters && !e.target.value){ clearAiSearch(); return; }
+  if(!aiFilters) render();
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    const lb = document.getElementById('lightbox');
+    if(lb.classList.contains('open')){ closeLightbox(); return; }
+    closeModal(); closeDetail(); closeSoum(); closeWa(); closeVerify(); closeAdmin(); closeSoumSuccess();
+  }
+  // أسهم الكيبورد تقلب الصور لما التفاصيل أو العارض مفتوح
+  const galleryActive = document.getElementById('detailOverlay').classList.contains('open')
+    || document.getElementById('lightbox').classList.contains('open');
+  if(galleryActive && galPhotos.length>1){
+    if(e.key==='ArrowLeft') galMove(-1);   // RTL: يسار = السابق بصرياً
+    if(e.key==='ArrowRight') galMove(1);
+  }
+});
+
+
+/* ==================== الاتصال بالسيرفر (Netlify Functions) ==================== */
+const API_BASES = ['/api', '/.netlify/functions'];
+let API = API_BASES[0];
+let liveMode = false; // true = البيانات من قاعدة Supabase الحقيقية
+
+const CAT_EMOJI = {phones:'📱',cars:'🚗',furn:'🛋️',elec:'💻',animals:'🐐',services:'🛠️',misc:'📦'};
+
+function relTime(iso){
+  const mins = Math.round((Date.now() - new Date(iso).getTime())/60000);
+  if(mins < 2) return 'الآن';
+  if(mins < 60) return 'قبل ' + mins + ' دقيقة';
+  const hrs = Math.round(mins/60);
+  if(hrs < 24) return 'قبل ' + hrs + (hrs===1?' ساعة':' ساعات');
+  const days = Math.round(hrs/24);
+  return 'قبل ' + days + (days===1?' يوم':' أيام');
+}
+
+async function loadListings(){
+  grid.innerHTML = '<div class="empty"><div class="big">⏳</div><div>جاري تحميل الإعلانات…</div></div>';
+  try{
+    // جرب المسار الموحد الجديد، وإن ما وجد ارجع للمسار القديم
+    let res = await fetch(API_BASES[0] + '/get-listings');
+    if(res.ok){ API = API_BASES[0]; }
+    else {
+      res = await fetch(API_BASES[1] + '/get-listings');
+      if(res.ok) API = API_BASES[1];
+    }
+    if(!res.ok) throw new Error('api ' + res.status);
+    const data = await res.json();
+    if(data.error) throw new Error(data.error);
+    listings = (data.listings || []).map(r => ({
+      dbId: r.id,
+      t: r.title, p: r.price, c: r.category, city: r.city,
+      time: relTime(r.created_at),
+      e: CAT_EMOJI[r.category] || '📦',
+      photos: Array.isArray(r.photos) ? r.photos : [],
+      seller: r.seller_name || 'بائع',
+      soums: r.soums_count || 0,
+      desc: r.description, notify: true, wa: null,
+    }));
+    liveMode = true;
+    render();
+  }catch(e){
+    console.warn('Connection failed:', e);
+    liveMode = false;
+    grid.innerHTML = `<div class="empty">
+      <div class="big">📡</div>
+      <div><b>الموقع غير متصل بقاعدة البيانات</b><br>
+      <span style="font-size:13px">تأكد من متغيرات البيئة في Netlify ثم أعد النشر</span></div>
+      <button onclick="loadListings()">↻ إعادة المحاولة</button>
+    </div>`;
+  }
+}
+
+todayVisits++; // زيارتك الحالية تنحسب
+renderCats();
+render();
+loadListings();
+</script>
+</body>
+</html>
